@@ -11,7 +11,10 @@ const flexbugs = require('postcss-flexbugs-fixes');
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
   app: path.join(__dirname, 'app'),
-  build: path.join(__dirname, 'build')
+  build: path.join(__dirname, 'build'),
+  style: path.join(__dirname, 'app/main.css'),
+  scss: path.join(__dirname, 'app/sass-styles.scss')
+
 };
 
 process.env.BABEL_ENV = TARGET;
@@ -19,14 +22,16 @@ process.env.BABEL_ENV = TARGET;
 const common = {
   context: PATHS.app,
   entry: {
-    app: PATHS.app
+    app: PATHS.app,
+    style: PATHS.style,
+    scss: PATHS.scss
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
   },
   output: {
     path: PATHS.build,
-    filename: 'bundle.js'
+    filename: '[name].js'
   },
   module: {
     loaders: [
