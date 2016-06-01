@@ -1,3 +1,4 @@
-var component = require('./component')
+const component = require('./component')
+require('./main.css')
 
 document.body.appendChild(component())
