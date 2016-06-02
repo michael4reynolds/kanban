@@ -79,7 +79,7 @@ if (TARGET === 'start' || !TARGET) {
       new HtmlWebpackPlugin({
         template: 'index.ejs',
         title: 'Kanban app',
-        appMountId: 'app',
+        favicon: 'img/favicon.ico',
         inject: false
       }),
       new SourceMapDevToolPlugin({
@@ -103,7 +103,7 @@ if(TARGET === 'build' || TARGET === 'stats') {
       new HtmlWebpackPlugin({
         template: 'index.ejs',
         title: 'Kanban app',
-        appMountId: 'app',
+        favicon: 'img/favicon.ico',
         inject: false
       })
     ]
