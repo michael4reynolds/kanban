@@ -1,21 +1,23 @@
-const path = require('path');
-const merge = require('webpack-merge');
-const webpack = require('webpack');
-const NpmInstallPlugin = require('npm-install-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanPlugin = require('clean-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const autoprefixer = require("autoprefixer");
-const flexbugs = require('postcss-flexbugs-fixes');
+const path = require('path')
+const merge = require('webpack-merge')
+const webpack = require('webpack')
+const NpmInstallPlugin = require('npm-install-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const SourceMapDevToolPlugin = webpack.SourceMapDevToolPlugin
+const CleanPlugin = require('clean-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const autoprefixer = require("autoprefixer")
+const flexbugs = require('postcss-flexbugs-fixes')
 
-const TARGET = process.env.npm_lifecycle_event;
+const TARGET = process.env.npm_lifecycle_event
+console.log(TARGET)
 const PATHS = {
   app: path.join(__dirname, 'app'),
   build: path.join(__dirname, 'build'),
   style: path.join(__dirname, 'app/main.css'),
   scss: path.join(__dirname, 'app/sass-styles.scss')
 
-};
+}
 
 process.env.BABEL_ENV = TARGET;
 
@@ -42,7 +44,8 @@ const common = {
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style', 'css', 'postcss', 'sass')
+        // loader: ExtractTextPlugin.extract('style', 'css', 'postcss', 'sass')
+        loaders: ['style', 'css', 'postcss', 'sass']
       },
       {
         test: /\.jsx?$/,
@@ -55,11 +58,10 @@ const common = {
     autoprefixer({browsers: ['last 5 versions']}),
     flexbugs
   ]
-};
+}
 
 if (TARGET === 'start' || !TARGET) {
   module.exports = merge(common, {
-    devtool: 'eval-source-map',
     devServer: {
       contentBase: PATHS.build,
       historyApiFallback: true,
@@ -74,7 +76,7 @@ if (TARGET === 'start' || !TARGET) {
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
       new NpmInstallPlugin({
-        save: true // --save
+        save: true
       }),
       new ExtractTextPlugin('[name].css'),
       new HtmlWebpackPlugin({
@@ -82,11 +84,16 @@ if (TARGET === 'start' || !TARGET) {
         title: 'Kanban app',
         appMountId: 'app',
         inject: false
+      }),
+      new SourceMapDevToolPlugin({
+        test: /\.js/,
+        filename: '[file].map',
+        columns: false
       })
     ]
-  });
+  })
 }
 
 if (TARGET === 'build') {
-  module.exports = merge(common, {});
+  module.exports = merge(common, {})
 }
