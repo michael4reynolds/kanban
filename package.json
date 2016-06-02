@@ -12,6 +12,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "jquery": "^2.2.4"
+  },
   "devDependencies": {
     "autoprefixer": "^6.3.6",
     "babel-core": "^6.9.1",
@@ -23,7 +26,6 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "gh-pages": "^0.11.0",
     "html-webpack-plugin": "^2.19.0",
-    "jquery": "^2.2.4",
     "node-sass": "^3.7.0",
     "npm-install-webpack-plugin": "^4.0.0",
     "postcss-flexbugs-fixes": "^2.0.0",
