@@ -1,0 +1,6 @@
+#app {
+  background-color: steelblue;
+  display: -webkit-box;
+  display: flex; }
+  #app p {
+    color: lime; }
