@@ -77,7 +77,7 @@ if (TARGET === 'start' || !TARGET) {
       }),
       new ExtractTextPlugin('[name].css'),
       new HtmlWebpackPlugin({
-        template: 'index.ejs',
+        template: 'index.html',
         title: 'Kanban app',
         favicon: 'img/favicon.ico',
         inject: false
@@ -101,7 +101,7 @@ if(TARGET === 'build' || TARGET === 'stats') {
         'process.env.NODE_ENV': '"production"'
       }),
       new HtmlWebpackPlugin({
-        template: 'index.ejs',
+        template: 'index.html',
         title: 'Kanban app',
         favicon: 'img/favicon.ico',
         inject: false
