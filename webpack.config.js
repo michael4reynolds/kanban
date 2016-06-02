@@ -10,7 +10,6 @@ const autoprefixer = require("autoprefixer")
 const flexbugs = require('postcss-flexbugs-fixes')
 
 const TARGET = process.env.npm_lifecycle_event
-console.log(TARGET)
 const PATHS = {
   app: path.join(__dirname, 'app'),
   build: path.join(__dirname, 'build'),
@@ -53,7 +52,7 @@ const common = {
     ]
   },
   postcss: () => [
-    autoprefixer({browsers: ['last 5 versions']}),
+    autoprefixer({browsers: ['> 5%']}),
     flexbugs
   ]
 }
@@ -92,6 +91,21 @@ if (TARGET === 'start' || !TARGET) {
   })
 }
 
-if (TARGET === 'build') {
-  module.exports = merge(common, {})
+if(TARGET === 'build' || TARGET === 'stats') {
+  module.exports = merge(common, {
+    plugins: [
+      new CleanPlugin([PATHS.build]),
+      new ExtractTextPlugin('[name].css'),
+      // Setting DefinePlugin affects React library size!
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': '"production"'
+      }),
+      new HtmlWebpackPlugin({
+        template: 'index.ejs',
+        title: 'Kanban app',
+        appMountId: 'app',
+        inject: false
+      })
+    ]
+  });
 }
