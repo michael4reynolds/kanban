@@ -16,7 +16,6 @@ const PATHS = {
   build: path.join(__dirname, 'build'),
   style: path.join(__dirname, 'app/main.css'),
   scss: path.join(__dirname, 'app/sass-styles.scss')
-
 }
 
 process.env.BABEL_ENV = TARGET;
@@ -39,13 +38,12 @@ const common = {
     loaders: [
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style', 'css'),
+        loader: ExtractTextPlugin.extract('style', 'css!postcss'),
         include: PATHS.app
       },
       {
         test: /\.scss$/,
-        // loader: ExtractTextPlugin.extract('style', 'css', 'postcss', 'sass')
-        loaders: ['style', 'css', 'postcss', 'sass']
+        loader: ExtractTextPlugin.extract('style', 'css!postcss!sass')
       },
       {
         test: /\.jsx?$/,
